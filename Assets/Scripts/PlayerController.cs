@@ -17,11 +17,13 @@ public class PlayerController : MonoBehaviour
     public float fallMultipler = 2.5f;
     public float lowJumpMultipler = 2f;
 
+    private Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void FixedUpdate()
@@ -32,10 +34,16 @@ public class PlayerController : MonoBehaviour
         if (moveInput < 0)
         {
             transform.localScale = new Vector2(-1, 1);
+            anim.SetBool("IsRunning", true);
         }
         else if (moveInput > 0)
         {
             transform.localScale = new Vector2(1, 1);
+            anim.SetBool("IsRunning", true);
+        }
+        else
+        {
+            anim.SetBool("IsRunning", false);
         }
     }
 
