@@ -19,11 +19,18 @@ public class PlayerController : MonoBehaviour
 
     private Animator anim;
 
+    public float hangTime = .2f;      // Время для прыжка "койота"
+    private float hangCounter;
+
+    public ParticleSystem stepParticles;
+    private ParticleSystem.EmissionModule footEmission;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        footEmission = stepParticles.emission;
     }
 
     private void FixedUpdate()
@@ -35,6 +42,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector2(-1, 1);
             anim.SetBool("IsRunning", true);
+
         }
         else if (moveInput > 0)
         {
@@ -53,10 +61,36 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
-        if (isGrounded && Input.GetButton("Jump"))
+        if (isGrounded)
+        {
+            hangCounter = hangTime;
+        }
+        else
+        {
+            hangCounter -= Time.deltaTime;
+        }
+
+
+        if (hangCounter > 0 && Input.GetButton("Jump"))
         {
             rb.velocity = Vector2.up * jumpForce;
         }
+
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+        }
+
+        // show footstep effects
+        if (isGrounded && Input.GetAxisRaw("Horizontal") != 0)
+        {
+            footEmission.rateOverTime = 35f;
+        }   
+        else
+        {
+            footEmission.rateOverTime = 0f;
+        }
+
     }
 
 }
