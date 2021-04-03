@@ -25,6 +25,15 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem stepParticles;
     private ParticleSystem.EmissionModule footEmission;
 
+    private Inventory inventory;
+    [SerializeField] private UI_inventory uiInventory;
+
+    private void Awake()
+    {
+        inventory = new Inventory();
+        uiInventory.SetInventory(inventory);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +63,6 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("IsRunning", false);
         }
     }
-
 
     // Update is called once per frame
     void Update()
@@ -91,6 +99,17 @@ public class PlayerController : MonoBehaviour
             footEmission.rateOverTime = 0f;
         }
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        ItemWorld itemWorld = collision.transform.parent.GetComponent<ItemWorld>();
+
+        if (collision.gameObject.CompareTag("Collectable") && itemWorld != null)
+        {
+            inventory.AddItem(itemWorld.GetItem());
+            Destroy(collision.transform.parent.gameObject);
+        }
     }
 
 }
