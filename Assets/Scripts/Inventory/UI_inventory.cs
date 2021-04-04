@@ -8,11 +8,12 @@ public class UI_inventory : MonoBehaviour
 {
     private Inventory inventory;
     private Transform itemSlotContainer;
-    [SerializeField] private Transform itemSlotTemplate;
+    private Transform mainInventory;
 
     private void Awake()
     {
         itemSlotContainer = transform.Find("ItemSlotContainer");
+        mainInventory = itemSlotContainer.Find("MainInventory");
     }
 
     public void SetInventory(Inventory inv)
@@ -30,51 +31,43 @@ public class UI_inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
-        foreach (Transform child in itemSlotContainer)
+        for (int i = 1; i <= 5; i++)
         {
-            Destroy(child.gameObject);
-        }
+            var item = inventory.GetItemArray()[i - 1];
+            var itemSlot = mainInventory.Find("ItemSlot" + i);
 
-        int x = 0;
-        int y = 0;
-        float itemSlotCellSize = 100f;
-        foreach (Item item in inventory.GetItemList())
-        {
-            RectTransform itemSlotRectTransform = Instantiate(itemSlotTemplate, itemSlotContainer).GetComponent<RectTransform>();
-            itemSlotRectTransform.gameObject.SetActive(true);
-            itemSlotRectTransform.anchoredPosition = new Vector2(x * itemSlotCellSize, -y * itemSlotCellSize);
-            Image image = itemSlotRectTransform.Find("Item").GetComponent<Image>();
-            image.sprite = item.GetSprite();
-            TextMeshProUGUI uiText = itemSlotRectTransform.Find("text").GetComponent<TextMeshProUGUI>();
-            if (item.amount > 1)
+            Transform itemImageObj = itemSlot.Find("Item");
+            Transform uiTextObj = itemSlot.Find("text");
+
+            if (item == null)
             {
-                if (item.amount < 10)
-                {
-                    uiText.SetText(' ' + item.amount.ToString());
-                }
-                else
-                {
-                    uiText.SetText(item.amount.ToString());
-                }
-
-                
+                itemImageObj.gameObject.SetActive(false);
+                uiTextObj.gameObject.SetActive(false);
             }
             else
             {
-                uiText.SetText("");
-            }
-            
+                itemImageObj.gameObject.SetActive(true);
+                uiTextObj.gameObject.SetActive(true);
 
-
-            x++;
-            if (x > 4)
-            {
-                x = 0;
-                y++;
-            }
+                Image image = itemImageObj.GetComponent<Image>();
+                image.sprite = item.GetSprite();
+                TextMeshProUGUI uiText = uiTextObj.GetComponent<TextMeshProUGUI>();
+                if (item.amount > 1)
+                {
+                    if (item.amount < 10)
+                    {
+                        uiText.SetText(' ' + item.amount.ToString());
+                    }
+                    else
+                    {
+                        uiText.SetText(item.amount.ToString());
+                    }
+                }
+                else
+                {
+                    uiText.SetText("");
+                }
+            }                
         }
     }
-
-
-
 }

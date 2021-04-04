@@ -46,8 +46,18 @@ public class CameraController : MonoBehaviour
         var yMin = playerY - _yBordersDistance / 2f;
         var yMax = playerY + _yBordersDistance / 2f;
 
-        var newPosX = Mathf.Clamp((mousePos.x + playerTransform.position.x) / 2, xMin, xMax);
-        var newPosY =  Mathf.Clamp((mousePos.y + playerTransform.position.y) / 2, yMin, yMax);
+        float newPosX, newPosY;
+        if (Inventory.isInventoryOpened)
+        {
+            newPosX = Mathf.Clamp((playerTransform.position.x), xMin, xMax);
+            newPosY = Mathf.Clamp((playerTransform.position.y), yMin, yMax);
+        }
+        else
+        {
+            newPosX = Mathf.Clamp((mousePos.x + playerTransform.position.x) / 2, xMin, xMax);
+            newPosY = Mathf.Clamp((mousePos.y + playerTransform.position.y) / 2, yMin, yMax);
+        }
+        
         var newPoint = new Vector2(newPosX, newPosY);
         var lerpPoint = Vector2.Lerp(transform.position, newPoint, 0.01f);
 

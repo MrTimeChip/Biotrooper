@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Inventory
 {
     public event EventHandler OnItemListChanged;
 
-    private List<Item> itemList;
+    public static bool isInventoryOpened = false;
+
+    private Item[] itemList;
 
     public Inventory()
     {
-        itemList = new List<Item>();
+        itemList = new Item[5];
     }
 
     public void AddItem(Item item)
@@ -21,26 +24,41 @@ public class Inventory
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList)
             {
-                if (inventoryItem.itemType == item.itemType)
+                if (inventoryItem != null && inventoryItem.itemType == item.itemType)
                 {
                     inventoryItem.amount += item.amount;
                     itemAlreadyInInventory = true;
+                    break;
                 }
             }
             if (!itemAlreadyInInventory)
             {
-                itemList.Add(item);
+                for (int i = 0; i < 5; i++)
+                {
+                    if (itemList[i] == null)
+                    {
+                        itemList[i] = item;
+                        break;
+                    }
+                }
             }
         }
         else
         {
-            itemList.Add(item);
+            for(int i = 0; i < 5; i++)
+            {
+                if (itemList[i] == null)
+                {
+                    itemList[i] = item;
+                    break;
+                }
+            }
         }    
         
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    public List<Item> GetItemList()
+    public Item[] GetItemArray()
     {
         return itemList;
     }
