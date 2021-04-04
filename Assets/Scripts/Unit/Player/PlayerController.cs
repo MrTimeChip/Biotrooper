@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unit.Player;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public float speed;
-    public float jumpForce;
     private float moveInput;
 
+    public PlayerStats playerStats;
     private bool isGrounded;
     public Transform feetPos;
     public float checkRadius;
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput * playerStats.speed, rb.velocity.y);
 
         if (moveInput < 0)
         {
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         if (hangCounter > 0 && Input.GetButton("Jump"))
         {
-            rb.velocity = Vector2.up * jumpForce;
+            rb.velocity = Vector2.up * playerStats.jumpForce;
         }
 
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)

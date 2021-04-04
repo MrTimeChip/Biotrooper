@@ -9,7 +9,7 @@ namespace Unit.Player
         public int maxHealth;
         public int speed;
         public int damage;
-        public int jumpHeight;
+        public int jumpForce;
 
         public HealthBar HealthBar;
         
@@ -17,9 +17,9 @@ namespace Unit.Player
         {
             maxHealth = 3;
             health = 3;
-            speed = 3;
+            speed = 7;
             damage = 3;
-            jumpHeight = 5;
+            jumpForce = 14;
             UpdateHealthBarMaxHealth();
             UpdateHealthBarCurrentHealth();
         }
