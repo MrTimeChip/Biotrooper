@@ -5,7 +5,8 @@ using UnityEngine;
 public interface IUnitStats
 {
 
-    // Update is called once per frame
+    public void TakeDamage(int damage);
+    public void RestoreHealth(int health);
     public void Update();
 
     public bool IsDeath();
