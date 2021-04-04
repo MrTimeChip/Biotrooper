@@ -2,28 +2,60 @@ using UnityEngine;
 
 namespace Unit.Player
 {
-    public class PlayerStats: MonoBehaviour, global::IUnitStats 
+    public class PlayerStats: MonoBehaviour, global::IUnitStats
     {
+
+        public int health;
+        public int maxHealth;
+        public int speed;
+        public int damage;
+        public int jumpHeight;
+
+        public HealthBar HealthBar;
+        
         public void Start()
         {
-            Health = 3;
-            Speed = 3;
-            Damage = 3;
-            JumpHeight = 5;
+            maxHealth = 3;
+            health = 3;
+            speed = 3;
+            damage = 3;
+            jumpHeight = 5;
+            UpdateHealthBarMaxHealth();
+            UpdateHealthBarCurrentHealth();
         }
-        // Start is called before the first frame update
-        public int Health { get; set; }
-        public int Speed { get; set; }
-        public int Damage { get; set; }
-        public int JumpHeight { get; set; }
-        
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            UpdateHealthBarCurrentHealth();
+        }
+
+        public void RestoreHealth(int health)
+        {
+            if (this.health + health >= maxHealth)
+                this.health = maxHealth;
+            else this.health += health;
+            UpdateHealthBarCurrentHealth();
+        }
+
+        public void UpdateHealthBarCurrentHealth()
+        {
+            HealthBar.SetHealth(health);
+        }
+
+        public void UpdateHealthBarMaxHealth()
+        {
+            HealthBar.SetMaxHealth(maxHealth);
+        }
+
         public bool IsDeath()
         {
-            return Health <= 0;
+            return health <= 0;
         }
 
         public void Update()
         {
+            UpdateHealthBarCurrentHealth();
             if (IsDeath())
             {
                 Destroy(gameObject);
