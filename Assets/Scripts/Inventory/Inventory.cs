@@ -58,8 +58,24 @@ public class Inventory
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
     }
 
+    public void RemoveItem(int slotNum)
+    {
+        itemList[slotNum] = null;
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+    }
+
     public Item[] GetItemArray()
     {
         return itemList;
+    }
+
+    public Item SetItem(Item item, int slotNum)
+    {
+        var slotItem = itemList[slotNum];
+        itemList[slotNum] = item;
+
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+
+        return slotItem;
     }
 }

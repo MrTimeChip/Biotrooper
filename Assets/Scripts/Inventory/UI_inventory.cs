@@ -24,6 +24,11 @@ public class UI_inventory : MonoBehaviour
         RefreshInventoryItems();
     }
 
+    public Inventory GetInventory()
+    {
+        return inventory;
+    }
+
     private void Inventory_OnItemsListChanged(object sender, System.EventArgs a)
     {
         RefreshInventoryItems();
@@ -31,9 +36,9 @@ public class UI_inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
-        for (int i = 1; i <= 5; i++)
+        for (int i = 0; i < 5; i++)
         {
-            var item = inventory.GetItemArray()[i - 1];
+            var item = inventory.GetItemArray()[i];
             var itemSlot = mainInventory.Find("ItemSlot" + i);
 
             Transform itemImageObj = itemSlot.Find("Item");
