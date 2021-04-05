@@ -7,7 +7,6 @@ public class SlotClickManager : MonoBehaviour
 {
     private void Update()
     {
-
         if (Input.GetMouseButtonDown(0))
         {
             GameObject slotBackground = GetClickedSlotBackground();

@@ -42,8 +42,15 @@ public class ItemPicker : MonoBehaviour
     public void SetItem(int slotNum)
     {
         var inv = ui_Inventory.GetInventory();
-        inv.SetItem(item, slotNum);
-        item = null;
-        imageObj.gameObject.SetActive(false);
+        item = inv.SetItem(item, slotNum);
+        if (item == null)
+        {
+            imageObj.gameObject.SetActive(false);
+        }
+        else
+        {
+            var img = imageObj.GetComponent<Image>();
+            img.sprite = item.GetSprite();
+        }
     }
 }
