@@ -12,7 +12,7 @@ public class Weapon_Hand : MonoBehaviour, IWeapon
 
     public void OnAttackEnded()
     {
-        _damageDealer.canDealDamage = false;
+        _damageDealer.OnDamageEnd();
     }
 
     private Animator _anim;
@@ -26,7 +26,7 @@ public class Weapon_Hand : MonoBehaviour, IWeapon
     
     public void Attack()
     {
-        _damageDealer.canDealDamage = true;
+        _damageDealer.Damage(WeaponDamage);
         _anim.SetBool("AttackMelee", true);
     }
 }
