@@ -9,11 +9,13 @@ public class UI_inventory : MonoBehaviour
     private Inventory inventory;
     private Transform itemSlotContainer;
     private Transform mainInventory;
+    private Transform partInventory;
 
     private void Awake()
     {
         itemSlotContainer = transform.Find("ItemSlotContainer");
         mainInventory = itemSlotContainer.Find("MainInventory");
+        partInventory = itemSlotContainer.Find("PartInventory");
     }
 
     public void SetInventory(Inventory inv)
@@ -36,12 +38,13 @@ public class UI_inventory : MonoBehaviour
 
     private void RefreshInventoryItems()
     {
+        Transform itemImageObj;
         for (int i = 0; i < 5; i++)
         {
             var item = inventory.GetItemArray()[i];
             var itemSlot = mainInventory.Find("ItemSlot" + i);
 
-            Transform itemImageObj = itemSlot.Find("Item");
+            itemImageObj = itemSlot.Find("Item");
             Transform uiTextObj = itemSlot.Find("text");
 
             if (item == null)
@@ -73,6 +76,36 @@ public class UI_inventory : MonoBehaviour
                     uiText.SetText("");
                 }
             }                
+        }
+
+        UpdatePartView(inventory.armLeft, "LeftArm");
+        UpdatePartView(inventory.armRight, "RightArm");
+        UpdatePartView(inventory.legLeft, "LeftLeg");
+        UpdatePartView(inventory.legRight, "RightLeg");
+        UpdatePartView(inventory.body, "Body");
+        UpdatePartView(inventory.heart, "Heart");
+        UpdatePartView(inventory.eyes, "Eyes");
+        UpdatePartView(inventory.lungs, "Lungs");
+        UpdatePartView(inventory.stomach, "Stomach");
+    }
+
+    private void UpdatePartView(Item partItem, string itemName)
+    {
+        var partSlot = partInventory.Find(itemName);
+        var itemImageObj = partSlot.Find("Item");
+        var itemBackImageObj = partSlot.Find("BackgroundItem");
+        if (partItem == null)
+        {
+            itemImageObj.gameObject.SetActive(false);
+            itemBackImageObj.gameObject.SetActive(true);
+
+        }
+        else
+        {
+            itemImageObj.gameObject.SetActive(true);
+            Image image = itemImageObj.GetComponent<Image>();
+            image.sprite = partItem.GetSprite();
+            itemBackImageObj.gameObject.SetActive(false);
         }
     }
 }

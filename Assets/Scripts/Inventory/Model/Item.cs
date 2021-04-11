@@ -11,7 +11,12 @@ public class Item
         Coin,
         Arm,
         Leg,
-        HealPotion
+        Eyes,
+        Body,
+        Lungs,
+        Heart,
+        Stomach,
+        HealthPotion
     }
 
     public ItemType itemType;
@@ -25,6 +30,12 @@ public class Item
             case ItemType.Coin: return ItemAssets.instance.coinSprite;
             case ItemType.Arm: return ItemAssets.instance.armSprite;
             case ItemType.Leg: return ItemAssets.instance.legSprite;
+            case ItemType.Eyes: return ItemAssets.instance.eyesSprite;
+            case ItemType.Body: return ItemAssets.instance.bodySprite;
+            case ItemType.Lungs: return ItemAssets.instance.lungsSprite;
+            case ItemType.Heart: return ItemAssets.instance.heartSprite;
+            case ItemType.Stomach: return ItemAssets.instance.stomachSprite;
+            case ItemType.HealthPotion: return ItemAssets.instance.healthPotionSprite;
         }
     }
 

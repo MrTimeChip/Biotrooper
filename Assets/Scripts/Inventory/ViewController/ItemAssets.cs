@@ -16,4 +16,10 @@ public class ItemAssets : MonoBehaviour
     public Sprite coinSprite;
     public Sprite armSprite;
     public Sprite legSprite;
+    public Sprite healthPotionSprite;
+    public Sprite eyesSprite;
+    public Sprite bodySprite;
+    public Sprite heartSprite;
+    public Sprite lungsSprite;
+    public Sprite stomachSprite;
 }
