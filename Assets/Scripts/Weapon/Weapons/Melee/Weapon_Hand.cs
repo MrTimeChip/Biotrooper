@@ -7,23 +7,26 @@ public class Weapon_Hand : MonoBehaviour, IWeapon
 {
     public WeaponType WeaponType => WeaponType.Melee;
     public string WeaponName => "Hand";
-    private Animator _anim;
-    private Collider2D attackBody;
+    public float WeaponRadius => 0.5f;
+    public int WeaponDamage => 1;
 
+    public void OnAttackEnded()
+    {
+        _damageDealer.OnDamageEnd();
+    }
+
+    private Animator _anim;
+    private DamageDealer _damageDealer;
+    
     public void Start()
     {
-        _anim = GetComponent<Animator>();
-        var leftArm = transform.Find("ArmLeft").gameObject;
-        attackBody = leftArm.GetComponent<Collider2D>();
+        _anim = GetComponentInParent<Animator>();
+        _damageDealer = transform.Find("AttackPoint").GetComponent<DamageDealer>();
     }
     
     public void Attack()
     {
+        _damageDealer.Damage(WeaponDamage);
         _anim.SetBool("AttackMelee", true);
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(attackBody.transform.position, attackBody.bounds.size);
     }
 }
