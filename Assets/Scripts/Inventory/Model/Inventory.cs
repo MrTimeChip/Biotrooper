@@ -28,7 +28,7 @@ public class Inventory
 
     public void AddItem(Item item)
     {
-        if (item.isStackable())
+        if (item.IsStackable())
         {
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList)
@@ -135,15 +135,15 @@ public class Inventory
     {
         switch (partName)
         {
-            case "LeftArm": return item.itemType == Item.ItemType.Arm;
-            case "RightArm": return item.itemType == Item.ItemType.Arm;
-            case "Eyes": return item.itemType == Item.ItemType.Eyes;
-            case "Body": return item.itemType == Item.ItemType.Body;
-            case "RightLeg": return item.itemType == Item.ItemType.Leg;
-            case "LeftLeg": return item.itemType == Item.ItemType.Leg;
-            case "Heart": return item.itemType == Item.ItemType.Heart;
-            case "Lungs": return item.itemType == Item.ItemType.Lungs;
-            case "Stomach": return item.itemType == Item.ItemType.Stomach;
+            case "LeftArm": return item.itemType == ItemType.Arm;
+            case "RightArm": return item.itemType == ItemType.Arm;
+            case "Eyes": return item.itemType == ItemType.Eyes;
+            case "Body": return item.itemType == ItemType.Body;
+            case "RightLeg": return item.itemType == ItemType.Leg;
+            case "LeftLeg": return item.itemType == ItemType.Leg;
+            case "Heart": return item.itemType == ItemType.Heart;
+            case "Lungs": return item.itemType == ItemType.Lungs;
+            case "Stomach": return item.itemType == ItemType.Stomach;
         }
         return false;
     }

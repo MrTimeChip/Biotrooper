@@ -1,17 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item
+
+public enum ItemType
+{
+    Coin,
+    Arm,
+    Leg,
+    Eyes,
+    Body,
+    Lungs,
+    Heart,
+    Stomach,
+    HealthPotion
+}
+
+[CreateAssetMenu]
+public class ItemDescriptor : ScriptableObject
 {
     public ItemType itemType;
-    public int amount;
     public Sprite icon;
-    public ItemDescriptor itemDescriptor;
 
     public bool IsStackable()
     {
-        switch (itemType)
+        switch(itemType)
         {
             case ItemType.Coin:
             case ItemType.HealthPotion:

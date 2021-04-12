@@ -58,7 +58,7 @@ public class UI_inventory : MonoBehaviour
                 uiTextObj.gameObject.SetActive(true);
 
                 Image image = itemImageObj.GetComponent<Image>();
-                image.sprite = item.GetSprite();
+                image.sprite = item.icon;
                 TextMeshProUGUI uiText = uiTextObj.GetComponent<TextMeshProUGUI>();
                 if (item.amount > 1)
                 {
@@ -104,7 +104,7 @@ public class UI_inventory : MonoBehaviour
         {
             itemImageObj.gameObject.SetActive(true);
             Image image = itemImageObj.GetComponent<Image>();
-            image.sprite = partItem.GetSprite();
+            image.sprite = partItem.icon;
             itemBackImageObj.gameObject.SetActive(false);
         }
     }

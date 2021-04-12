@@ -33,7 +33,7 @@ public class ItemPicker : MonoBehaviour
             inv.RemoveItem(slotNum);
             imageObj.gameObject.SetActive(true);
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.GetSprite();
+            img.sprite = item.icon;
         }
     }
 
@@ -50,7 +50,7 @@ public class ItemPicker : MonoBehaviour
             inv.RemovePart(partName);
             imageObj.gameObject.SetActive(true);
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.GetSprite();
+            img.sprite = item.icon;
         }
     }
 
@@ -68,11 +68,11 @@ public class ItemPicker : MonoBehaviour
 
         if (mousePos.x < playerX)
         {
-            ItemWorld.SpawnItemWorld(new Vector3(playerX - 0.9f, playerTransform.position.y + 0.3f, playerTransform.position.z), item);
+            ItemWorld.SpawnItemWorld(new Vector3(playerX - 0.9f, playerTransform.position.y + 0.3f, playerTransform.position.z), item.itemDescriptor, item.amount);
         }
         else
         { 
-            ItemWorld.SpawnItemWorld(new Vector3(playerX + 0.9f, playerTransform.position.y + 0.3f, playerTransform.position.z), item);
+            ItemWorld.SpawnItemWorld(new Vector3(playerX + 0.9f, playerTransform.position.y + 0.3f, playerTransform.position.z), item.itemDescriptor, item.amount);
         }
 
         item = null;
@@ -95,7 +95,7 @@ public class ItemPicker : MonoBehaviour
         else
         {
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.GetSprite();
+            img.sprite = item.icon;
         }
     }
 
@@ -112,7 +112,7 @@ public class ItemPicker : MonoBehaviour
             else
             {
                 var img = imageObj.GetComponent<Image>();
-                img.sprite = item.GetSprite();
+                img.sprite = item.icon;
             }
         }
     }

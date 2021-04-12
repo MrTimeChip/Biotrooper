@@ -103,7 +103,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        ItemWorld itemWorld = collision.transform.parent.GetComponent<ItemWorld>();
+        ItemWorld itemWorld = null;
+        if (collision.transform.parent != null)
+        {
+            itemWorld = collision.transform.parent.GetComponent<ItemWorld>();
+        }    
 
         if (collision.gameObject.CompareTag("Collectable") && itemWorld != null)
         {

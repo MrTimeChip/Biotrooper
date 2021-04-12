@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ItemWorld : MonoBehaviour
 {
-    public static ItemWorld SpawnItemWorld(Vector3 position, Item item)
+    public static ItemWorld SpawnItemWorld(Vector3 position, ItemDescriptor itemDescr, int amount)
     {
-        Transform transform = Instantiate(ItemAssets.instance.pfItemWorld, position, Quaternion.identity);
+        var prefab = (GameObject)Resources.Load("pfItemWorld", typeof(GameObject));
+        Transform transform = Instantiate(prefab.transform, position, Quaternion.identity);
 
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
+
+        var item = new Item();
+        item.amount = amount;
+        item.icon = itemDescr.icon;
+        item.itemType = itemDescr.itemType;
+        item.itemDescriptor = itemDescr;
+
         itemWorld.SetItem(item);
 
         return itemWorld;
@@ -25,7 +33,7 @@ public class ItemWorld : MonoBehaviour
     public void SetItem(Item item)
     {
         this.item = item;
-        spriteRenderer.sprite = item.GetSprite();
+        spriteRenderer.sprite = item.icon;
     }
 
     public Item GetItem()
