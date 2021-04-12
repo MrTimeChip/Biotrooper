@@ -8,6 +8,7 @@ public class Item
     public int amount;
     public Sprite icon;
     public ItemDescriptor itemDescriptor;
+    public int damage = 5;
 
     public bool IsStackable()
     {

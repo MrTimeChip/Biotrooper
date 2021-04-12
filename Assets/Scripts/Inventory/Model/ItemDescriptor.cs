@@ -22,6 +22,7 @@ public class ItemDescriptor : ScriptableObject
 {
     public ItemType itemType;
     public Sprite icon;
+    public GameObject prefab;
 
     public bool IsStackable()
     {

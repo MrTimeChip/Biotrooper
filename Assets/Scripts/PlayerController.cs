@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     {
         inventory = new Inventory();
         uiInventory.SetInventory(inventory);
+        transform.GetComponent<PlayerPartManager>().SetInventory(inventory);
+        transform.GetComponent<PlayerCombat>().SetInventory(inventory);
     }
 
     // Start is called before the first frame update
@@ -109,10 +111,14 @@ public class PlayerController : MonoBehaviour
             itemWorld = collision.transform.parent.GetComponent<ItemWorld>();
         }    
 
-        if (collision.gameObject.CompareTag("Collectable") && itemWorld != null)
+        if (collision.gameObject.CompareTag("Collectable") && itemWorld != null && collision.transform.parent.gameObject.activeSelf)
         {
-            inventory.AddItem(itemWorld.GetItem());
-            Destroy(collision.transform.parent.gameObject);
+            if(inventory.AddItem(itemWorld.GetItem()))
+            {
+                collision.transform.parent.gameObject.SetActive(false);
+                Destroy(collision.transform.parent.gameObject);
+            }
+            
         }
     }
 

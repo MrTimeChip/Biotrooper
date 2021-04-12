@@ -7,6 +7,7 @@ using UnityEngine;
 public class Inventory
 {
     public event EventHandler OnItemListChanged;
+    public event EventHandler OnPartUpdated;
 
     public static bool isInventoryOpened = false;
 
@@ -26,8 +27,10 @@ public class Inventory
         itemList = new Item[5];
     }
 
-    public void AddItem(Item item)
+    public bool AddItem(Item item)
     {
+        bool itemIsAdded = false;
+
         if (item.IsStackable())
         {
             bool itemAlreadyInInventory = false;
@@ -37,6 +40,7 @@ public class Inventory
                 {
                     inventoryItem.amount += item.amount;
                     itemAlreadyInInventory = true;
+                    itemIsAdded = true;
                     break;
                 }
             }
@@ -47,6 +51,7 @@ public class Inventory
                     if (itemList[i] == null)
                     {
                         itemList[i] = item;
+                        itemIsAdded = true;
                         break;
                     }
                 }
@@ -59,12 +64,15 @@ public class Inventory
                 if (itemList[i] == null)
                 {
                     itemList[i] = item;
+                    itemIsAdded = true;
                     break;
                 }
             }
         }    
         
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
+
+        return itemIsAdded;
     }
 
     public void RemoveItem(int slotNum)
@@ -129,6 +137,7 @@ public class Inventory
             case "Stomach": stomach = null; break;
         }
         OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        OnPartUpdated?.Invoke(this, EventArgs.Empty);
     }
 
     public bool CanSetPart(Item item, string partName)
@@ -164,7 +173,8 @@ public class Inventory
             case "Stomach": tmpItem = stomach; stomach = item; break;
         }
 
-        OnItemListChanged?.Invoke(this, EventArgs.Empty); 
+        OnItemListChanged?.Invoke(this, EventArgs.Empty);
+        OnPartUpdated?.Invoke(this, EventArgs.Empty);
         return tmpItem;
     }
 }

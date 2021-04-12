@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8630d6d1fcad4543bd2df1f9105155d, type: 3}
+  m_Name: ArmFireball
+  m_EditorClassIdentifier: 
+  itemType: 1
+  icon: {fileID: 4278120580491971516, guid: 50703d3b4cc34e84cafd3b9fcabfd4dd, type: 3}
+  prefab: {fileID: 6598284604856315682, guid: f9a8f365b3ce39c40b951a6ccb022301, type: 3}
