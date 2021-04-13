@@ -31,12 +31,12 @@ public class Inventory
     {
         bool itemIsAdded = false;
 
-        if (item.IsStackable())
+        if (item.itemDescriptor.isStackable)
         {
             bool itemAlreadyInInventory = false;
             foreach (Item inventoryItem in itemList)
             {
-                if (inventoryItem != null && inventoryItem.itemType == item.itemType)
+                if (inventoryItem != null && inventoryItem.itemDescriptor.itemType == item.itemDescriptor.itemType)
                 {
                     inventoryItem.amount += item.amount;
                     itemAlreadyInInventory = true;
@@ -90,7 +90,7 @@ public class Inventory
     {
         var slotItem = itemList[slotNum];
 
-        if (slotItem != null && slotItem.itemType == item.itemType)
+        if (slotItem != null && slotItem.itemDescriptor.itemType == item.itemDescriptor.itemType)
         {
             slotItem.amount += item.amount;
             slotItem = null;
@@ -144,15 +144,15 @@ public class Inventory
     {
         switch (partName)
         {
-            case "LeftArm": return item.itemType == ItemType.Arm;
-            case "RightArm": return item.itemType == ItemType.Arm;
-            case "Eyes": return item.itemType == ItemType.Eyes;
-            case "Body": return item.itemType == ItemType.Body;
-            case "RightLeg": return item.itemType == ItemType.Leg;
-            case "LeftLeg": return item.itemType == ItemType.Leg;
-            case "Heart": return item.itemType == ItemType.Heart;
-            case "Lungs": return item.itemType == ItemType.Lungs;
-            case "Stomach": return item.itemType == ItemType.Stomach;
+            case "LeftArm": return item.itemDescriptor.itemType == ItemType.Arm;
+            case "RightArm": return item.itemDescriptor.itemType == ItemType.Arm;
+            case "Eyes": return item.itemDescriptor.itemType == ItemType.Eyes;
+            case "Body": return item.itemDescriptor.itemType == ItemType.Body;
+            case "RightLeg": return item.itemDescriptor.itemType == ItemType.Leg;
+            case "LeftLeg": return item.itemDescriptor.itemType == ItemType.Leg;
+            case "Heart": return item.itemDescriptor.itemType == ItemType.Heart;
+            case "Lungs": return item.itemDescriptor.itemType == ItemType.Lungs;
+            case "Stomach": return item.itemDescriptor.itemType == ItemType.Stomach;
         }
         return false;
     }

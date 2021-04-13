@@ -13,8 +13,6 @@ public class ItemWorld : MonoBehaviour
 
         var item = new Item();
         item.amount = amount;
-        item.icon = itemDescr.icon;
-        item.itemType = itemDescr.itemType;
         item.itemDescriptor = itemDescr;
 
         itemWorld.SetItem(item);
@@ -33,7 +31,7 @@ public class ItemWorld : MonoBehaviour
     public void SetItem(Item item)
     {
         this.item = item;
-        spriteRenderer.sprite = item.icon;
+        spriteRenderer.sprite = item.itemDescriptor.icon;
     }
 
     public Item GetItem()

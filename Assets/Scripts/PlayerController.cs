@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed;
+
     public float jumpForce;
     private float moveInput;
 
@@ -21,6 +22,10 @@ public class PlayerController : MonoBehaviour
 
     public float hangTime = .2f;      // Время для прыжка "койота"
     private float hangCounter;
+
+    public float dashSpeed;
+    public float dashTime = 2;
+    private float dashCounter;
 
     public ParticleSystem stepParticles;
     private ParticleSystem.EmissionModule footEmission;
@@ -47,7 +52,8 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
+        if (dashCounter <= 0)
+            rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
 
         if (moveInput < 0)
         {
@@ -80,13 +86,20 @@ public class PlayerController : MonoBehaviour
             hangCounter -= Time.deltaTime;
         }
 
-
         if (hangCounter > 0 && Input.GetButton("Jump"))
         {
-            rb.velocity = Vector2.up * jumpForce;
+            if (transform.GetComponent<PlayerPartManager>().HaveStrengthJump())
+            {
+                rb.velocity = Vector2.up * jumpForce * 1.4f;
+            }
+            else
+            {
+                rb.velocity = Vector2.up * jumpForce;
+            }
+            hangCounter = 0;
         }
 
-        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        if (transform.GetComponent<PlayerPartManager>().HaveStrengthJump() && Input.GetButtonUp("Jump") && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
@@ -101,6 +114,20 @@ public class PlayerController : MonoBehaviour
             footEmission.rateOverTime = 0f;
         }
 
+        // DASH
+        if (Input.GetKeyDown(KeyCode.E) && transform.GetComponent<PlayerPartManager>().HaveDash())
+        {
+            rb.velocity = new Vector2(dashSpeed, rb.velocity.y);
+            dashCounter = dashTime;
+        }
+        if (Input.GetKeyDown(KeyCode.Q) && transform.GetComponent<PlayerPartManager>().HaveDash())
+        {
+            rb.velocity = new Vector2(-dashSpeed, rb.velocity.y);
+            dashCounter = dashTime;
+        }
+
+        if (dashCounter > 0)
+            dashCounter -= Time.deltaTime;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

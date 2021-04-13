@@ -23,16 +23,5 @@ public class ItemDescriptor : ScriptableObject
     public ItemType itemType;
     public Sprite icon;
     public GameObject prefab;
-
-    public bool IsStackable()
-    {
-        switch(itemType)
-        {
-            case ItemType.Coin:
-            case ItemType.HealthPotion:
-                return true;
-            default:
-                return false;
-        }
-    }
+    public bool isStackable;
 }

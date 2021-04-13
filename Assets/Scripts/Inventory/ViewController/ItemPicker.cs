@@ -33,7 +33,7 @@ public class ItemPicker : MonoBehaviour
             inv.RemoveItem(slotNum);
             imageObj.gameObject.SetActive(true);
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.icon;
+            img.sprite = item.itemDescriptor.icon;
         }
     }
 
@@ -50,7 +50,7 @@ public class ItemPicker : MonoBehaviour
             inv.RemovePart(partName);
             imageObj.gameObject.SetActive(true);
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.icon;
+            img.sprite = item.itemDescriptor.icon;
         }
     }
 
@@ -95,7 +95,7 @@ public class ItemPicker : MonoBehaviour
         else
         {
             var img = imageObj.GetComponent<Image>();
-            img.sprite = item.icon;
+            img.sprite = item.itemDescriptor.icon;
         }
     }
 
@@ -112,7 +112,7 @@ public class ItemPicker : MonoBehaviour
             else
             {
                 var img = imageObj.GetComponent<Image>();
-                img.sprite = item.icon;
+                img.sprite = item.itemDescriptor.icon;
             }
         }
     }
