@@ -90,7 +90,7 @@ public class Inventory
     {
         var slotItem = itemList[slotNum];
 
-        if (slotItem != null && slotItem.itemDescriptor.itemType == item.itemDescriptor.itemType)
+        if (slotItem != null && slotItem.itemDescriptor.itemType == item.itemDescriptor.itemType && item.itemDescriptor.isStackable)
         {
             slotItem.amount += item.amount;
             slotItem = null;

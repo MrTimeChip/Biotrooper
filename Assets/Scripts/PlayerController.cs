@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
 
     private bool isGrounded;
-    public Transform feetPos;
+    public Transform feetPos1;
+    public Transform feetPos2;
     public float checkRadius;
     public LayerMask whatIsGround;
 
@@ -75,7 +76,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(feetPos1.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(feetPos2.position, checkRadius, whatIsGround);
 
         if (isGrounded)
         {

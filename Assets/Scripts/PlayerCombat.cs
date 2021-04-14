@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCombat : MonoBehaviour
 {
     private IWeapon _currentWeapon;
-    private GameObject _instance;
+    private GameObject _instanceArmLeft;
 
     private Inventory inventory;
 
@@ -24,15 +24,20 @@ public class PlayerCombat : MonoBehaviour
 
         if (inventory.armLeft != null && inventory.armLeft.itemDescriptor.prefab != null)
         {
+            if (_instanceArmLeft != null)
+            {
+                Destroy(_instanceArmLeft);
+            }
+
             var prefab = inventory.armLeft.itemDescriptor.prefab;
-            _instance = Instantiate(prefab, go.transform.position, go.transform.rotation, go.transform);
-            _currentWeapon = _instance.GetComponent<IWeapon>();
+            _instanceArmLeft = Instantiate(prefab, go.transform.position, go.transform.rotation, go.transform);
+            _currentWeapon = _instanceArmLeft.GetComponent<IWeapon>();
             _currentWeapon.SetItem(inventory.armLeft);
             _currentWeapon.SetPlayer(transform.gameObject);
         }
         else
         {
-            _instance = null;
+            _instanceArmLeft = null;
             _currentWeapon = null;
         }
     }
