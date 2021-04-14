@@ -15,3 +15,5 @@ MonoBehaviour:
   itemType: 1
   icon: {fileID: 4278120580491971516, guid: 50703d3b4cc34e84cafd3b9fcabfd4dd, type: 3}
   prefab: {fileID: 6598284604856315682, guid: f9a8f365b3ce39c40b951a6ccb022301, type: 3}
+  isStackable: 0
+  itemName: Fireball arm

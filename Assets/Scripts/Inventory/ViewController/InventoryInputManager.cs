@@ -18,7 +18,7 @@ public class InventoryInputManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && Inventory.isInventoryOpened)
         {
-            GameObject partBackground = GetClickedPartSlotBackground();
+            GameObject partBackground = OverPartSlotBackground();
             if (partBackground != null)
             {
                 if (ItemPicker.instance.HaveItem())
@@ -32,7 +32,7 @@ public class InventoryInputManager : MonoBehaviour
                 return;
             }
 
-            GameObject slotBackground = GetClickedSlotBackground();
+            GameObject slotBackground = OverSlotBackground();
             if (slotBackground != null)
             {
                 if (ItemPicker.instance.HaveItem())
@@ -54,7 +54,7 @@ public class InventoryInputManager : MonoBehaviour
         }
     }
 
-    private GameObject GetClickedPartSlotBackground()
+    public static GameObject OverPartSlotBackground()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
@@ -71,7 +71,7 @@ public class InventoryInputManager : MonoBehaviour
         return null;
     }
 
-    private GameObject GetClickedSlotBackground()
+    public static GameObject OverSlotBackground()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
         eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);

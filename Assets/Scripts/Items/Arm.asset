@@ -15,3 +15,5 @@ MonoBehaviour:
   itemType: 1
   icon: {fileID: 6757282713640645180, guid: febb89faf074e4b409db38cf2d3f9069, type: 3}
   prefab: {fileID: 6598284604856315682, guid: 0b4ab78777f92ab4cb4b7de4b4258892, type: 3}
+  isStackable: 0
+  itemName: Arm

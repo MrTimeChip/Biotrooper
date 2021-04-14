@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Weapon_Hand : MonoBehaviour, IWeapon
 {
+    private GameObject player;
     private Item item;
     private Animator _anim;
     private DamageDealer _damageDealer;
@@ -29,5 +30,10 @@ public class Weapon_Hand : MonoBehaviour, IWeapon
     public void SetItem(Item item)
     {
         this.item = item;
+    }
+
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
     }
 }

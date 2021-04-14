@@ -28,6 +28,7 @@ public class PlayerCombat : MonoBehaviour
             _instance = Instantiate(prefab, go.transform.position, go.transform.rotation, go.transform);
             _currentWeapon = _instance.GetComponent<IWeapon>();
             _currentWeapon.SetItem(inventory.armLeft);
+            _currentWeapon.SetPlayer(transform.gameObject);
         }
         else
         {
