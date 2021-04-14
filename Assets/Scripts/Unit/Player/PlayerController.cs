@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unit.Player;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float speed;
-
     public float jumpForce;
     private float moveInput;
 
+    public PlayerStats playerStats;
     private bool isGrounded;
     public Transform feetPos1;
     public Transform feetPos2;
@@ -73,10 +74,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(feetPos1.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(feetPos2.position, checkRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
 
         if (isGrounded)
         {
@@ -86,6 +88,7 @@ public class PlayerController : MonoBehaviour
         {
             hangCounter -= Time.deltaTime;
         }
+
 
         if (hangCounter > 0 && Input.GetButton("Jump"))
         {
@@ -100,7 +103,7 @@ public class PlayerController : MonoBehaviour
             hangCounter = 0;
         }
 
-        if (transform.GetComponent<PlayerPartManager>().HaveStrengthJump() && Input.GetButtonUp("Jump") && rb.velocity.y > 0)
+        if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
         }
