@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.OverlapCircle(feetPos.position, checkRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(feetPos1.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(feetPos2.position, checkRadius, whatIsGround);
 
         if (isGrounded)
         {
